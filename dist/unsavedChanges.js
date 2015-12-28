@@ -221,6 +221,10 @@ angular.module('unsavedChanges', ['resettable', 'ui.router'])
                 if (!allFormsClean()) {
                     unsavedWarningsConfig.log("a form is dirty");
 
+                    if (!toState.data) {
+                        toState.data = {};
+                    }
+
                     if (toState.data.skipUnsavedChangesChecking) {
                         toState.data.skipUnsavedChangesChecking = undefined;
                         return;
