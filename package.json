@@ -1,8 +1,8 @@
 {
-  "name": "angular-unsavedChanges",
+  "name": "angular-unsaved-changes",
   "version": "0.2.5",
   "description": "AngularJS directive to warn user of unsaved changes when navigating away from a form.",
-  "main": "Gruntfile.js",
+  "main": "dist/unsavedChanges.js",
   "devDependencies": {
     "grunt-strip": "~0.2.1",
     "express": "latest",
@@ -13,7 +13,6 @@
     "grunt-contrib-copy": "~0.4.1",
     "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-uglify": "~0.2.0",
-    "grunt-contrib-jshint": "~0.6.0",
     "grunt-contrib-cssmin": "~0.6.0",
     "grunt-contrib-connect": "~0.5.0",
     "grunt-contrib-clean": "~0.5.0",
