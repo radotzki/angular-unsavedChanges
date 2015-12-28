@@ -11,13 +11,14 @@ module.exports = function(config) {
 
     files: [
       // ------------------------------
-      // DEPENDENCIES  
+      // DEPENDENCIES
       // ------------------------------
       'demo/bower_components/jquery/jquery.js',
       'demo/bower_components/angular/angular.js',
       'demo/bower_components/angular-mocks/angular-mocks.js',
       'demo/bower_components/angular-route/angular-route.js',
       'demo/bower_components/angular-translate/angular-translate.js',
+      'demo/bower_components/angular-ui-router/release/angular-ui-router.js',
       //'demo/bower_components/angular-scenario/angular-scenario.js',
       //'node_modules/karma-ng-scenario/lib/adapter.js',
       'src/unsavedChanges.js',
@@ -46,12 +47,12 @@ module.exports = function(config) {
     logLevel: config.LOG_INFO,
 
     // enable / disable watching file and executing tests whenever any file changes
-    // @note our grunt tasks can over ride these settings. They are just default here. 
-    // we do this with out auto_test grunt task. 
+    // @note our grunt tasks can over ride these settings. They are just default here.
+    // we do this with out auto_test grunt task.
     autoWatch: false,
 
     // Start these browsers, currently available:
-    // @note you must have the browser on the computer doing the testing 
+    // @note you must have the browser on the computer doing the testing
     // - Chrome
     // - ChromeCanary
     // - Firefox
@@ -65,7 +66,7 @@ module.exports = function(config) {
     // if true, it capture browsers, run tests and exit
     singleRun: true,
 
-    // reporters? 
+    // reporters?
     reporters: ['progress', 'osx'],
 
     // provide green / red for apss / fail.

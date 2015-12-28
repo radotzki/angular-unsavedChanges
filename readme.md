@@ -9,18 +9,18 @@ This directive will alert users when they navigate away from a page where a form
 - when user swipes (iOS)
 - when user refreshes the page
 
-In addition this module: 
+In addition this module:
 
 - Works with multiple forms on the same page
 - Provides a button to disregard unsaved changes
 - Works with Angular Translate module
 - Has configurable reload and navigate messages
-- Works with uiRouter by default by listeneing for `$locationChangeStart` and `$stateChangeStart` 
+- uiRouter is required. Works by listeneing for `$stateChangeStart`
 - Can be configured to listen for any event
 
 ## How it Works
 
-The directive binds to `locationChangeStart` and `window.onbeforeunload`. When these events happen all registered froms are checked if they are dirty. The module defers to the forms `$dirty` property as a single source of truth. If dirty, the user is alerted. Disregarding changes resets the form and sets pristine.  
+The directive binds to `locationChangeStart` and `window.onbeforeunload`. When these events happen all registered froms are checked if they are dirty. The module defers to the forms `$dirty` property as a single source of truth. If dirty, the user is alerted. Disregarding changes resets the form and sets pristine.
 
 ## Basic Usage
 
@@ -33,11 +33,11 @@ The directive binds to `locationChangeStart` and `window.onbeforeunload`. When t
 
 ## API
 
-### Directives 
-The module provides three directives for use. 
+### Directives
+The module provides three directives for use.
 
-#### unsaved-warning-form 
-Add to forms you want to register with directive. The module will only listen when forms are registered. 
+#### unsaved-warning-form
+Add to forms you want to register with directive. The module will only listen when forms are registered.
 
 ```
 <form name="testForm" unsaved-warning-form>
@@ -56,7 +56,7 @@ Optionally, you can add to an element within a form:
 When used in this way, it must be no more then 3 levels nested within parent form.
 
 
-#### unsaved-warning-clear 
+#### unsaved-warning-clear
 Add to button or link that will disregard changes, preventing the messaging when user tries to navigate. Note that button type should be `reset`.
 
 ```
@@ -74,45 +74,53 @@ Add to inputs that use `ng-model` to reset model values when user dismisses chan
 <input name="email" ng-model="email" resettable />
 ```
 
-Note that if you have multiple forms on the page, only the model values inside the form which was reset will be effected. 
+Note that if you have multiple forms on the page, only the model values inside the form which was reset will be effected.
 
-On page change or reload, all model values will be effected. 
+On page change or reload, all model values will be effected.
 
 
-### Provider Configuration 
-A number of options can be configured. The module uses the `Object.defineProperty` pattern. This avoids the need for custom getters and setters and allows us to treat configuration as pure JS objects. 
+### Provider Configuration
+A number of options can be configured. The module uses the `Object.defineProperty` pattern. This avoids the need for custom getters and setters and allows us to treat configuration as pure JS objects.
 
 #### useTranslateService
-Defaults to `true`. Will use translate service if available. It's safe to leave this set to `true`, even when not using the translate service, because the module still checks that the service exists. 
+Defaults to `true`. Will use translate service if available. It's safe to leave this set to `true`, even when not using the translate service, because the module still checks that the service exists.
 
 ```
 unsavedWarningsConfigProvider.useTranslateService = true;
 ```
 
 #### logEnabled
-Defaults to `false`. Uses the services internal logging method for debugging.  
+Defaults to `false`. Uses the services internal logging method for debugging.
 
 ```
 unsavedWarningsConfigProvider.logEnabled = true;
 ```
 
-#### routeEvent
-Defaults to `['$locationChangeStart' ,'$stateChangeStart']` which supports ui router by default.
-
-```
-unsavedWarningsConfigProvider.routeEvent = '$stateChangeStart';
-```
-
 #### navigateMessage
-Set custom message displayed when user navigates. If using translate this will be the key to translate. 
+Set custom message displayed when user navigates. If using translate this will be the key to translate.
 ```
 unsavedWarningsConfigProvider.navigateMessage = "Custom Navigate Message";
 ```
 
 #### reloadMessage
-Set custom message displayed when user refreshes the page. If using translate this will be the key to translate. 
+Set custom message displayed when user refreshes the page. If using translate this will be the key to translate.
 ```
 unsavedWarningsConfigProvider.reloadMessage = "Custom Reload Message";
+```
+
+#### navigateDialog
+Set custom asynchronous function that returns a promise
+```
+function customNavigateDialog(message) {
+    return someAsyncFunc(message)
+        .then(function () {
+            // user doesn't care about loosing stuff
+        }, function () {
+            // user wants to stay on page
+        });
+}
+
+unsavedWarningsConfigProvider.navigateDialog = customNavigateDialog;
 ```
 
 
@@ -128,12 +136,12 @@ To try the demo run `npm install` && `bower install` && `grunt connect`. The bro
 
 ## Test
 
-Note you need to manually change the paths in `index.html` and `karam-unit.conf` to point to the `dist` version for final testing. Make sure to run `$ grunt` first. 
+Note you need to manually change the paths in `index.html` and `karam-unit.conf` to point to the `dist` version for final testing. Make sure to run `$ grunt` first.
 
 __End 2 End Testing__
 Because of the alert / event driven nature of this module it made the most sense to rely on e2e tests. (also its hard to interact with alerts via unit tests).
 
-To run the e2e tests do the following: 
+To run the e2e tests do the following:
 
 - Install Protractor as per directions here: [https://github.com/angular/protractor](https://github.com/angular/protractor)
 - Start selenium server: `webdriver-manager start` (or use other selenium methods as per Protractor documentation.)

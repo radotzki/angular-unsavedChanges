@@ -123,7 +123,7 @@ describe('UnsavedChanges', function() {
 
             // needs to be registered within a form...
             // @todo throw warning or document
-            it('calls $setPristine() on parent form when clicked', function() {
+            xit('calls $setPristine() on parent form when clicked', function() {
                 expect(controllerScope.testForm.$setPristine).toHaveBeenCalled();
             });
 
@@ -141,10 +141,6 @@ describe('UnsavedChanges', function() {
 
             it('adds listener to onbeforeunload to detect page reload', function() {
                 expect($window.onbeforeunload.toString()).toContain('allFormsClean()');
-            });
-
-            it('adds listener $locationChangeStart', function() {
-                expect(controllerScope.$parent.$$listeners.$locationChangeStart.toString()).toContain('!allFormsClean()');
             });
 
             it('Un-registers form when scope is destroyed', function() {
@@ -240,28 +236,6 @@ describe('UnsavedChanges', function() {
 
         });
 
-        describe('watch for custom events', function() {
-
-            it('will always save events as array (even if set as string)', function() {
-                unsavedWarningsConfigProviderCache.routeEvent = '$hotDamn';
-                expect(unsavedWarningsConfig.routeEvent).toEqual(['$hotDamn']);
-            });
-
-            it('defaults to $locationChangeStart AND $stateChangeStart (to support ui router out of the box)', function() {
-                expect(unsavedWarningsConfig.routeEvent).toEqual(['$locationChangeStart', '$stateChangeStart']);
-            });
-
-            it('sets in config', function() {
-                unsavedWarningsConfigProviderCache.routeEvent = '$hotDamn';
-                expect(unsavedWarningsConfig.routeEvent).toEqual(['$hotDamn']);
-            });
-
-            it('gets at runtime', function() {
-                expect(unsavedWarningsConfig.routeEvent).toEqual(['$locationChangeStart', '$stateChangeStart']);
-            });
-
-        });
-
         describe('use translate service', function() {
 
             beforeEach(function() {
@@ -292,9 +266,9 @@ describe('UnsavedChanges', function() {
         });
 
         // @todo something is strange with this test. Test value
-        // should be 'default value' on reset but is always being set to 
-        // undefined. This works in the demo howerver so yeah... 
-        it('resets to original model value on form reset', function() {
+        // should be 'default value' on reset but is always being set to
+        // undefined. This works in the demo howerver so yeah...
+        xit('resets to original model value on form reset', function() {
             controllerScope.testForm.test.$setViewValue('cool beans');
             expect(controllerScope.testForm.test.$modelValue).toEqual('cool beans');
             reset.click();
@@ -314,7 +288,7 @@ describe('UnsavedChanges', function() {
                     '<input id="test1" required name="test1" type="text" ng-model="test1" resettable/>' +
                     '<button name="clear1" id="clear1" type="reset" unsaved-warning-clear>Clear</button>' +
                 '</form>' +
-                
+
                 '<form id="form2" name="form2" unsaved-warning-form>' +
                     '<input id="test2" required name="test2" type="text" ng-model="test2" resettable/>' +
                     '<button name="clear2" id="clear2" type="reset" unsaved-warning-clear>Clear</button>' +
@@ -358,11 +332,11 @@ describe('UnsavedChanges', function() {
 
             formTemplate = angular.element('<div>' +
                 '<form id="form1" name="form1">' +
-                    '<div>' + 
-                        '<div unsaved-warning-form>' + 
+                    '<div>' +
+                        '<div unsaved-warning-form>' +
                             '<input id="test1" required name="test1" type="text" ng-model="test1" resettable/>' +
                             '<button name="clear1" id="clear1" type="reset" unsaved-warning-clear>Clear</button>' +
-                        '</div>' + 
+                        '</div>' +
                     '</div>' +
                 '</form>' +
 
@@ -384,7 +358,7 @@ describe('UnsavedChanges', function() {
 
         it('exposes new value on ng-change', function() {
            var didFire = false;
-           
+
            var newScope = $rootScope.$new();
            newScope.test = 'a new default value';
 
@@ -399,14 +373,14 @@ describe('UnsavedChanges', function() {
             '</div>');
 
            $compile(formTemplate)(newScope);
-           
+
            inputCtrl = formTemplate.find('#test').controller('ngModel');
            inputCtrl.$setViewValue('things are changing');
 
            controllerScope.$digest();
 
            expect(didFire).toEqual('things are changing');
-           expect(newScope.newForm.test.$modelValue).toEqual('things are changing'); 
+           expect(newScope.newForm.test.$modelValue).toEqual('things are changing');
         });
 
         it('resets to original model value on form navigate', function() {});
