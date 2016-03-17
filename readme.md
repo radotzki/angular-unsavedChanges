@@ -79,6 +79,11 @@ Note that if you have multiple forms on the page, only the model values inside t
 On page change or reload, all model values will be effected.
 
 
+### unsavedWarningSharedService
+#### tearDown
+Clear all forms and remove the 'onbeforeunload' function.
+
+
 ### Provider Configuration
 A number of options can be configured. The module uses the `Object.defineProperty` pattern. This avoids the need for custom getters and setters and allows us to treat configuration as pure JS objects.
 

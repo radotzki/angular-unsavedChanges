@@ -150,6 +150,8 @@ angular.module('unsavedChanges', ['resettable', 'ui.router'])
         var areAllFormsClean = true;
         var removeFunctions = [];
 
+        this.tearDown = tearDown;
+
         // @note only exposed for testing purposes.
         this.allForms = function() {
             return allForms;
