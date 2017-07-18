@@ -121,6 +121,9 @@ angular.module('unsavedChanges', ['resettable', 'ui.router'])
             Object.defineProperty(publicInterface, 'navigateDialog', {
                 get: function() {
                     return navigateDialog || defaultNavigateDialog;
+                },
+                set: function(value) {
+                    navigateDialog = value;
                 }
             });
 
